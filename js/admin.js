@@ -8,7 +8,7 @@
 // ==========================================
 
 // API Base URL - Change this for production
-const API_URL = 'http://localhost:5000';
+const API_URL = 'https://double-m-b.onrender.com/api';
 
 // Admin State
 let adminToken = '';
@@ -710,3 +710,4 @@ document.addEventListener('keydown', (e) => {
         closeOrderModal();
     }
 });
+
