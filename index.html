@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Double M Accessories - Premium Men's Accessories. Rings, Bracelets, Wallets and more.">
+    <meta name="keywords" content="men accessories, rings, bracelets, wallets, Egypt">
+    <meta name="theme-color" content="#1a1a2e">
+    
+    <title>Double M Accessories | Premium Men's Accessories</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/logo.jpg" type="image/jpeg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loader -->
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <a href="#" class="logo" onclick="navigateTo('home')">
+                    <img src="assets/logo.jpg" alt="Double M Accessories" class="logo-img">
+                    <span class="logo-text">Double M</span>
+                </a>
+
+                <!-- Navigation -->
+                <nav class="nav-menu" id="navMenu">
+                    <a href="#" class="nav-link active" data-section="home" onclick="navigateTo('home')">
+                        <i class="fas fa-home"></i> <span data-translate="nav_home">Home</span>
+                    </a>
+                    <a href="#" class="nav-link" data-section="products" onclick="navigateTo('products')">
+                        <i class="fas fa-th-large"></i> <span data-translate="nav_products">Products</span>
+                    </a>
+                    <a href="#" class="nav-link" data-section="cart" onclick="navigateTo('cart')">
+                        <i class="fas fa-shopping-cart"></i> <span data-translate="nav_cart">Cart</span>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="header-actions">
+                    <!-- Mobile Cart Icon -->
+                    <button class="mobile-cart-btn" onclick="navigateTo('cart')">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="mobile-cart-badge" id="mobileCartBadge">0</span>
+                    </button>
+                    
+                    <!-- Language Toggle -->
+                    <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()">
+                        <span id="langText">AR</span>
+                    </button>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="homeSection" class="section home-section active">
+            <!-- Hero Banner -->
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title" data-translate="hero_title">Elevate Your Style</h1>
+                    <p class="hero-subtitle" data-translate="hero_subtitle">Premium Men's Accessories for the Modern Gentleman</p>
+                    <button class="btn btn-primary btn-lg" onclick="navigateTo('products')">
+                        <i class="fas fa-shopping-bag"></i> <span data-translate="shop_now">Shop Now</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="container">
+                <!-- All Products -->
+                <h2 class="section-title" data-translate="our_products">Our Products</h2>
+                <div class="products-grid" id="featuredProducts">
+                    <!-- Products loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="productsSection" class="section products-section">
+            <div class="container">
+                <!-- Search Only -->
+                <div class="filters-bar">
+                    <div class="filter-group search-group">
+                        <input type="text" id="searchInput" placeholder="Search products..." data-translate-placeholder="search_placeholder" onkeyup="applyFilters()">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products loaded dynamically -->
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state hidden" id="emptyProducts">
+                    <i class="fas fa-box-open"></i>
+                    <p data-translate="no_products">No products found</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cart Section -->
+        <section id="cartSection" class="section cart-section">
+            <div class="container">
+                <h2 class="section-title" data-translate="your_cart">Your Cart</h2>
+                
+                <!-- Cart Items -->
+                <div class="cart-container" id="cartContainer">
+                    <div class="cart-items" id="cartItems">
+                        <!-- Cart items loaded dynamically -->
+                    </div>
+
+                    <!-- Cart Summary -->
+                    <div class="cart-summary" id="cartSummary">
+                        <h3 data-translate="order_summary">Order Summary</h3>
+                        <div class="summary-row">
+                            <span data-translate="subtotal">Subtotal</span>
+                            <span id="cartSubtotal">0 EGP</span>
+                        </div>
+                        <div class="summary-row">
+                            <span data-translate="shipping">Shipping</span>
+                            <span id="cartShipping">0 EGP</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span data-translate="total">Total</span>
+                            <span id="cartTotal">0 EGP</span>
+                        </div>
+                        <button class="btn btn-primary btn-block" onclick="proceedToCheckout()">
+                            <i class="fas fa-credit-card"></i> <span data-translate="checkout">Proceed to Checkout</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Empty Cart -->
+                <div class="empty-state" id="emptyCart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p data-translate="empty_cart">Your cart is empty</p>
+                    <button class="btn btn-primary" onclick="navigateTo('products')">
+                        <span data-translate="continue_shopping">Continue Shopping</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checkout Section -->
+        <section id="checkoutSection" class="section checkout-section">
+            <div class="container">
+                <h2 class="section-title" data-translate="checkout">Checkout</h2>
+                
+                <div class="checkout-container">
+                    <!-- Checkout Form -->
+                    <form class="checkout-form" id="checkoutForm" onsubmit="submitOrder(event)">
+                        <h3><i class="fas fa-user"></i> <span data-translate="customer_info">Customer Information</span></h3>
+                        
+                        <div class="form-group">
+                            <label for="customerName" data-translate="full_name">Full Name *</label>
+                            <input type="text" id="customerName" name="name" required 
+                                   placeholder="Enter your full name" data-translate-placeholder="name_placeholder">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customerPhone" data-translate="phone">Phone Number *</label>
+                            <input type="tel" id="customerPhone" name="phone" required 
+                                   placeholder="01xxxxxxxxx" pattern="^01[0-9]{9}$">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customerGovernorate" data-translate="governorate">Governorate *</label>
+                            <select id="customerGovernorate" name="governorate" required>
+                                <option value="" data-translate="select_governorate">Select Governorate</option>
+                                <option value="Cairo">Cairo - القاهرة</option>
+                                <option value="Giza">Giza - الجيزة</option>
+                                <option value="Alexandria">Alexandria - الإسكندرية</option>
+                                <option value="Dakahlia">Dakahlia - الدقهلية</option>
+                                <option value="Red Sea">Red Sea - البحر الأحمر</option>
+                                <option value="Beheira">Beheira - البحيرة</option>
+                                <option value="Fayoum">Fayoum - الفيوم</option>
+                                <option value="Gharbiya">Gharbiya - الغربية</option>
+                                <option value="Ismailia">Ismailia - الإسماعيلية</option>
+                                <option value="Menofia">Menofia - المنوفية</option>
+                                <option value="Minya">Minya - المنيا</option>
+                                <option value="Qaliubiya">Qaliubiya - القليوبية</option>
+                                <option value="New Valley">New Valley - الوادي الجديد</option>
+                                <option value="Suez">Suez - السويس</option>
+                                <option value="Aswan">Aswan - أسوان</option>
+                                <option value="Assiut">Assiut - أسيوط</option>
+                                <option value="Beni Suef">Beni Suef - بني سويف</option>
+                                <option value="Port Said">Port Said - بورسعيد</option>
+                                <option value="Damietta">Damietta - دمياط</option>
+                                <option value="Sharkia">Sharkia - الشرقية</option>
+                                <option value="South Sinai">South Sinai - جنوب سيناء</option>
+                                <option value="Kafr el-Sheikh">Kafr el-Sheikh - كفر الشيخ</option>
+                                <option value="Matrouh">Matrouh - مطروح</option>
+                                <option value="Luxor">Luxor - الأقصر</option>
+                                <option value="Qena">Qena - قنا</option>
+                                <option value="North Sinai">North Sinai - شمال سيناء</option>
+                                <option value="Sohag">Sohag - سوهاج</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customerAddress" data-translate="address">Detailed Address *</label>
+                            <textarea id="customerAddress" name="address" required rows="3"
+                                      placeholder="Street, Building, Floor, Apartment" 
+                                      data-translate-placeholder="address_placeholder"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customerNotes" data-translate="notes">Order Notes (Optional)</label>
+                            <textarea id="customerNotes" name="notes" rows="2"
+                                      placeholder="Any special instructions..." 
+                                      data-translate-placeholder="notes_placeholder"></textarea>
+                        </div>
+
+                        <h3><i class="fas fa-credit-card"></i> <span data-translate="payment_method">Payment Method</span></h3>
+                        
+                        <div class="payment-methods">
+                            <label class="payment-option">
+                                <input type="radio" name="payment_method" value="cod" checked>
+                                <span class="payment-card">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <span data-translate="cod">Cash on Delivery</span>
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment_method" value="vodafone_cash">
+                                <span class="payment-card">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Vodafone Cash</span>
+                                </span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment_method" value="instapay">
+                                <span class="payment-card">
+                                    <i class="fas fa-university"></i>
+                                    <span>InstaPay</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitOrderBtn">
+                            <i class="fas fa-check"></i> <span data-translate="place_order">Place Order</span>
+                        </button>
+                    </form>
+
+                    <!-- Order Summary -->
+                    <div class="checkout-summary">
+                        <h3 data-translate="order_summary">Order Summary</h3>
+                        <div class="checkout-items" id="checkoutItems">
+                            <!-- Items loaded dynamically -->
+                        </div>
+                        <div class="summary-row">
+                            <span data-translate="subtotal">Subtotal</span>
+                            <span id="checkoutSubtotal">0 EGP</span>
+                        </div>
+                        <div class="summary-row">
+                            <span data-translate="shipping">Shipping</span>
+                            <span id="checkoutShipping">0 EGP</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span data-translate="total">Total</span>
+                            <span id="checkoutTotal">0 EGP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Success Section -->
+        <section id="successSection" class="section success-section">
+            <div class="container">
+                <div class="success-content">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 data-translate="order_success">Order Placed Successfully!</h2>
+                    <p class="order-id-text">Order #<span id="successOrderId"></span></p>
+                    <button class="btn btn-primary" onclick="navigateTo('home')">
+                        <i class="fas fa-home"></i> <span data-translate="back_home">Back to Home</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Product Quick View Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body">
+                <div class="product-modal-gallery">
+                    <div class="product-modal-image">
+                        <img id="modalProductImage" src="" alt="Product">
+                    </div>
+                    <div class="image-thumbnails hidden" id="modalImageThumbs"></div>
+                </div>
+                <div class="product-modal-info">
+                    <h2 id="modalProductName"></h2>
+                    <p id="modalProductDescription" class="product-description"></p>
+                    <p class="product-price" id="modalProductPrice"></p>
+                    
+                    <!-- Size Selection -->
+                    <div class="option-group" id="modalSizeGroup">
+                        <label data-translate="select_size">Select Size *</label>
+                        <div class="option-buttons" id="modalSizeOptions"></div>
+                        <p class="error-text hidden" id="sizeError" data-translate="size_required">Please select a size</p>
+                    </div>
+                    
+                    <!-- Color Selection -->
+                    <div class="option-group" id="modalColorGroup">
+                        <label data-translate="select_color">Select Color *</label>
+                        <div class="option-buttons" id="modalColorOptions"></div>
+                        <p class="error-text hidden" id="colorError" data-translate="color_required">Please select a color</p>
+                    </div>
+                    
+                    <!-- Quantity -->
+                    <div class="quantity-group">
+                        <label data-translate="quantity">Quantity</label>
+                        <div class="quantity-control">
+                            <button type="button" onclick="changeQuantity(-1)">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" id="modalQuantity" value="1" min="1" max="10">
+                            <button type="button" onclick="changeQuantity(1)">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button id="modalAddToCartBtn" class="btn btn-primary btn-block" onclick="addToCartFromModal()">
+                        <i class="fas fa-cart-plus"></i> <span data-translate="add_to_cart">Add to Cart</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/logo.jpg" alt="Double M Accessories" class="footer-logo">
+                    <h3>Double M Accessories</h3>
+                    <p data-translate="footer_tagline">Premium Men's Accessories</p>
+                </div>
+                <div class="footer-links">
+                    <h4 data-translate="quick_links">Quick Links</h4>
+                    <a href="#" onclick="navigateTo('home')" data-translate="nav_home">Home</a>
+                    <a href="#" onclick="navigateTo('products')" data-translate="nav_products">Products</a>
+                    <a href="#" onclick="navigateTo('cart')" data-translate="nav_cart">Cart</a>
+                </div>
+                <div class="footer-social">
+                    <h4 data-translate="follow_us">Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#" id="facebookLink" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" id="instagramLink" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                        <a href="#" id="tiktokLink" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Double M Accessories. <span data-translate="rights">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="#" id="whatsappBtn" class="whatsapp-float" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>
