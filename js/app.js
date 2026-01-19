@@ -8,7 +8,7 @@
 // ==========================================
 
 // API Base URL - Change this for production
-const API_URL = 'https://double-m-b.onrender.com/api';
+const API_URL = 'https://double-m-b.onrender.com';
 
 // App State
 const AppState = {
@@ -781,4 +781,5 @@ document.addEventListener('keydown', (e) => {
 
 // Start app when DOM is ready
 document.addEventListener('DOMContentLoaded', initApp);
+
 
